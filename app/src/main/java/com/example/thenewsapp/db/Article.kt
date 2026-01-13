@@ -1,6 +1,4 @@
-// C:/Users/Admin/Desktop/TheNewsApp/app/src/main/java/com/example/thenewsapp/models/Article.kt
-
-package com.example.thenewsapp.models
+package com.example.thenewsapp.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

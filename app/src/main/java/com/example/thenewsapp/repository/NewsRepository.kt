@@ -2,7 +2,7 @@ package com.example.thenewsapp.repository
 
 import com.example.thenewsapp.api.RetrofitInstance
 import com.example.thenewsapp.db.ArticleDatabase
-import com.example.thenewsapp.models.Article
+import com.example.thenewsapp.db.Article
 
 class NewsRepository(val db: ArticleDatabase) {
 

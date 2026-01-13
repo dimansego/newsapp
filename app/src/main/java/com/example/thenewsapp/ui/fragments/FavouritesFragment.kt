@@ -32,11 +32,9 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
         newsViewModel = (activity as NewsActivity).newsViewModel
         setupFavouritesRecycler()
 
-        newsAdapter.setOnItemClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("article", it)
-            }
-            findNavController().navigate(R.id.action_favouritesFragment_to_articleFragment, bundle)
+        newsAdapter.setOnItemClickListener { article ->
+            val action = FavouritesFragmentDirections.actionFavouritesFragmentToArticleFragment(article)
+            findNavController().navigate(action)
         }
 
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(

@@ -26,24 +26,12 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
 
     lateinit var newsViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
-    lateinit var retryButton: Button
-    lateinit var errorText: TextView
-    lateinit var itemHeadlinesError: CardView
+
     lateinit var binding: FragmentHeadlinesBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHeadlinesBinding.bind(view)
-
-
-        itemHeadlinesError = view.findViewById(R.id.itemHeadlinesError)
-
-        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view: View = inflater.inflate(R.layout.item_error, null)
-
-        retryButton = view.findViewById(R.id.retryButton)
-        errorText = view.findViewById(R.id.errorText)
-
         newsViewModel = (activity as NewsActivity).newsViewModel
         setupHeadlinesRecycler()
 
@@ -57,8 +45,6 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         newsViewModel.headlines.observe(viewLifecycleOwner, Observer { response ->
             when(response){
                 is Resource.Success<*> -> {
-                    hideProgressBar()
-                    hideErrorMessage()
                     response.data?.let {newsResponse ->
                         val filteredArticles = newsResponse.articles.filter { article ->
                             // Only keep articles that have all essential fields
@@ -73,21 +59,16 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
                     }
                 }
                 is Resource.Error<*> -> {
-                    hideProgressBar()
                     response.message?.let { message ->
                         Toast.makeText(activity, "Sorry error: $message", Toast.LENGTH_LONG).show()
-                        showErrorMessage(message)
                     }
                 }
                 is Resource.Loading<*> -> {
-                    showProgressBar()
                 }
             }
         })
 
-        retryButton.setOnClickListener {
-            newsViewModel.getHeadlines("us")
-        }
+
     }
 
     var isError = false
@@ -95,26 +76,10 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
     var isLastPage = false
     var isScrolling = false
 
-    private fun hideProgressBar(){
-        binding.paginationProgressBar.visibility = View.INVISIBLE
-        isLoading = false
-    }
 
-    private fun showProgressBar(){
-        binding.paginationProgressBar.visibility = View.VISIBLE
-        isLoading = true
-    }
 
-    private fun hideErrorMessage(){
-        itemHeadlinesError.visibility = View.INVISIBLE
-        isError = false
-    }
 
-    private fun showErrorMessage(message: String){
-        itemHeadlinesError.visibility = View.VISIBLE
-        errorText.text = message
-        isError = true
-    }
+
 
     val scrollListener = object : RecyclerView.OnScrollListener() {
 

@@ -6,16 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.example.thenewsapp.models.Article
+import com.example.thenewsapp.db.Article
 
-@Database(
-    entities = [Article::class],
-    version = 2
-)
+@Database(entities = [Article::class], version = 2)
 abstract class ArticleDatabase: RoomDatabase() {
-
     abstract fun getArticleDao(): ArticleDAO
-
     companion object{
         @Volatile
         private var instance: ArticleDatabase? = null
@@ -26,7 +21,6 @@ abstract class ArticleDatabase: RoomDatabase() {
                 instance = it
             }
         }
-
         private fun createDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,

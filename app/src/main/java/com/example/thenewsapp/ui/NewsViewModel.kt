@@ -7,7 +7,7 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.thenewsapp.models.Article
+import com.example.thenewsapp.db.Article
 import com.example.thenewsapp.models.NewsResponse
 import com.example.thenewsapp.repository.NewsRepository
 import com.example.thenewsapp.util.Resource

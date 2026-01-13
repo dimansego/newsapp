@@ -11,7 +11,7 @@
 
         <argument
             android:name="article"
-            app:argType="com.example.thenewsapp.models.Article"/>
+            app:argType="com.example.thenewsapp.db.Article"/>
 
     </fragment>
     <fragment
